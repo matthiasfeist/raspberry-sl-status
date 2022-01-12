@@ -17,7 +17,7 @@ async function getTrafficsituationData() {
 
   let train = false
   let subway = false
-  for (const trafficType of response.data?.ResponseData?.TrafficTypes) {
+  for (const trafficType of response.data.ResponseData.TrafficTypes) {
     if (
       trafficType.Type === 'metro' &&
       trafficType.StatusIcon === 'EventGood'
@@ -43,7 +43,7 @@ async function getDeviationsData() {
 
   let train = true
   let subway = true
-  for (const deviation of response.data?.ResponseData) {
+  for (const deviation of response.data.ResponseData) {
     if (deviation.TransportMode === 'METRO' && deviation.MainNews) {
       subway = false
     }
