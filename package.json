@@ -24,6 +24,7 @@
     "prettier": "^2.5.1"
   },
   "prettier": {
-    "singleQuote": true
+    "singleQuote": true,
+    "semi": false
   }
 }
