@@ -1,4 +1,5 @@
 const axios = require('axios')
+const { slApiKeyDeviations, slApiKeyTrafficsituation } = require('./config.js')
 
 module.exports = async function () {
   const trafficSituation = await getTrafficsituationData()
@@ -12,7 +13,7 @@ module.exports = async function () {
 
 async function getTrafficsituationData() {
   const response = await axios.get(
-    'https://api.sl.se/api2/trafficsituation.json?key=60efc7468e344f528b038b2781df025e'
+    `https://api.sl.se/api2/trafficsituation.json?key=${slApiKeyTrafficsituation}`
   )
 
   let train = false
@@ -38,7 +39,7 @@ async function getTrafficsituationData() {
 
 async function getDeviationsData() {
   const response = await axios.get(
-    'https://api.sl.se/api2/deviationsrawdata.json?key=3c1b8eca287741069608162af0bdc6ea&transportMode=metro,train'
+    `https://api.sl.se/api2/deviationsrawdata.json?key=${slApiKeyDeviations}&transportMode=metro,train`
   )
 
   let train = true

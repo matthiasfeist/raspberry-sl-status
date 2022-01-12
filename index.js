@@ -1,5 +1,6 @@
 const { Blinkt, COLOURS } = require('blinkt-kit')
 const getSlStatus = require('./getSlStatus.js')
+const { keepScriptRunningSec } = require('./config.js')
 
 const blinkt = new Blinkt()
 blinkt.setClearOnExit(true)
@@ -13,20 +14,22 @@ async function main() {
     const status = await getSlStatus()
     showStatus('left', status.subway)
     showStatus('right', status.train)
-  } catch {
+    await delay(keepScriptRunningSec * 1000)
+  } catch (err) {
     blinkt.flashPixel({
       pixel: 0,
       times: 100,
       intervalms: 100,
       ...COLOURS.ORANGE,
     })
+    console.log('flashing error pixel')
+    console.log(err)
   }
 }
 main()
 
 function showStatus(side, status) {
   const color = status ? COLOURS.LIME : COLOURS.RED
-  blinkt.clear()
   if (side === 'left') {
     console.log('left', color)
     blinkt.setPixel({ pixel: 0, ...color })
@@ -43,3 +46,5 @@ function showStatus(side, status) {
   }
   blinkt.show()
 }
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))

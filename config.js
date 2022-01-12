@@ -1,4 +1,5 @@
 module.exports = {
-  slApiKey: '',
-  keepScriptRunningSec: 5,
-};
+  slApiKeyDeviations: '',
+  slApiKeyTrafficsituation: '',
+  keepScriptRunningSec: 5 * 60,
+}
