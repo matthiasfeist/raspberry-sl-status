@@ -6,6 +6,7 @@ const blinkt = new Blinkt()
 blinkt.setClearOnExit(true)
 
 // Set LED to a blue-ish color to indicate that it's loading...
+blinkt.clear()
 blinkt.setPixel({ pixel: 0, ...COLOURS.AQUA })
 blinkt.show()
 
@@ -14,17 +15,13 @@ async function main() {
     const status = await getSlStatus()
     showStatus('left', status.subway)
     showStatus('right', status.train)
-    await delay(keepScriptRunningSec * 1000)
   } catch (err) {
-    blinkt.flashPixel({
-      pixel: 0,
-      times: 100,
-      intervalms: 100,
-      ...COLOURS.ORANGE,
-    })
+    blinkt.setPixel({ pixel: 0, ...COLOURS.ORANGE })
+    blinkt.show()
     console.log('flashing error pixel')
     console.log(err)
   }
+  await delay(keepScriptRunningSec * 1000)
 }
 main()
 
