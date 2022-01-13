@@ -26,7 +26,9 @@ async function main() {
 main()
 
 function showStatus(side, status) {
-  const color = status ? COLOURS.LIME : COLOURS.RED
+  const color = status
+    ? { ...COLOURS.LIME, brightness: 0.3 }
+    : { ...COLOURS.RED, brightness: 0.8 }
   if (side === 'left') {
     console.log('left', color)
     blinkt.setPixel({ pixel: 0, ...color })
