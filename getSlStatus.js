@@ -1,7 +1,10 @@
 const axios = require('axios')
 axios.defaults.timeout = 7000
 
-const { slApiKeyDeviations, slApiKeyTrafficsituation } = require('./config.js')
+const {
+  slApiKeyDeviations,
+  slApiKeyTrafficsituation,
+} = require('./api_keys.js')
 
 module.exports = async function () {
   const trafficSituation = await getTrafficsituationData()
