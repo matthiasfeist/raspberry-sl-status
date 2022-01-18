@@ -16,7 +16,7 @@ async function main() {
     showStatus('left', status.subway)
     showStatus('right', status.train)
   } catch (err) {
-    blinkt.setPixel({ pixel: 0, ...COLOURS.ORANGE })
+    blinkt.setPixel({ pixel: 0, ...COLOURS.MAGENTA })
     blinkt.show()
     console.log('flashing error pixel')
     console.log(err)
@@ -27,8 +27,8 @@ main()
 
 function showStatus(side, status) {
   const color = status
-    ? { ...COLOURS.LIME, brightness: 0.3 }
-    : { ...COLOURS.RED, brightness: 0.8 }
+    ? { ...COLOURS.LIME, brightness: 0.2 }
+    : { ...COLOURS.RED, brightness: 0.9 }
   if (side === 'left') {
     console.log('left', color)
     blinkt.setPixel({ pixel: 0, ...color })
