@@ -1,4 +1,8 @@
-const { getTrafficsituationData } = require('./getSlStatus.js')
+const {
+  getTrafficsituationData,
+  STATUS_OK,
+  STATUS_PROBLEM,
+} = require('./getSlStatus.js')
 const fs = require('fs')
 const path = require('path')
 
@@ -15,13 +19,13 @@ test('filter-green-line-and-pendel-sodertalje.json', () => {
     getTrafficsituationData(
       loadFixture('filter-green-line-and-pendel-sodertalje.json')
     )
-  ).toStrictEqual({ subway: false, train: false })
+  ).toStrictEqual({ subway: STATUS_OK, train: STATUS_OK })
 })
 
 test('filter-pendel-gnesta-problem.json', () => {
   expect(
     getTrafficsituationData(loadFixture('filter-pendel-gnesta-problem.json'))
-  ).toStrictEqual({ subway: false, train: false })
+  ).toStrictEqual({ subway: STATUS_OK, train: STATUS_OK })
 })
 
 test('trafficsituation-balsta-nynashamn-correct.json', () => {
@@ -29,7 +33,7 @@ test('trafficsituation-balsta-nynashamn-correct.json', () => {
     getTrafficsituationData(
       loadFixture('trafficsituation-balsta-nynashamn-correct.json')
     )
-  ).toStrictEqual({ subway: false, train: true })
+  ).toStrictEqual({ subway: STATUS_OK, train: STATUS_PROBLEM })
 })
 
 test('trafficsituation-problem-balsta-bro.json', () => {
@@ -37,5 +41,5 @@ test('trafficsituation-problem-balsta-bro.json', () => {
     getTrafficsituationData(
       loadFixture('trafficsituation-problem-balsta-bro.json')
     )
-  ).toStrictEqual({ subway: false, train: true })
+  ).toStrictEqual({ subway: STATUS_OK, train: STATUS_PROBLEM })
 })

@@ -1,5 +1,5 @@
 const { Blinkt, COLOURS } = require('blinkt-kit')
-const { getSlStatus } = require('./getSlStatus.js')
+const { getSlStatus, STATUS_OK } = require('./getSlStatus.js')
 const { keepScriptRunningSec } = require('./config.js')
 
 const blinkt = new Blinkt()
@@ -26,9 +26,10 @@ async function main() {
 main()
 
 function showStatus(side, status) {
-  const color = status
-    ? { ...COLOURS.LIME, brightness: 0.2 }
-    : { ...COLOURS.RED, brightness: 0.9 }
+  const color =
+    status === STATUS_OK
+      ? { ...COLOURS.LIME, brightness: 0.2 }
+      : { ...COLOURS.RED, brightness: 0.9 }
   if (side === 'left') {
     console.log('left', color)
     blinkt.setPixel({ pixel: 0, ...color })
