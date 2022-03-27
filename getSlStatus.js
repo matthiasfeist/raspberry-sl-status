@@ -2,9 +2,13 @@ const axios = require('axios')
 axios.defaults.timeout = 7000
 
 const { slApiKeyTrafficsituation } = require('./api_keys.js')
+const { removeLinesFromTrafficSituation } = require('./config.js')
 
-module.exports = async function () {
-  const trafficSituation = await getTrafficsituationData()
+async function getSlStatus() {
+  const response = await axios.get(
+    `https://api.sl.se/api2/trafficsituation.json?key=${slApiKeyTrafficsituation}`
+  )
+  const trafficSituation = getTrafficsituationData(response.data)
 
   return {
     train: trafficSituation.train,
@@ -12,28 +16,33 @@ module.exports = async function () {
   }
 }
 
-async function getTrafficsituationData() {
-  const response = await axios.get(
-    `https://api.sl.se/api2/trafficsituation.json?key=${slApiKeyTrafficsituation}`
-  )
+function getTrafficsituationData(apiResponse) {
+  const trafficTypesList = apiResponse.ResponseData.TrafficTypes
 
-  let train = false
-  let subway = false
-  for (const trafficType of response.data.ResponseData.TrafficTypes) {
-    if (
-      trafficType.Type === 'metro' &&
-      trafficType.StatusIcon === 'EventGood'
-    ) {
-      subway = true
-    }
+  const train =
+    trafficTypesList
+      .find((trafficType) => trafficType.Type === 'train')
+      .Events.filter(
+        (event) =>
+          event.StatusIcon !== 'EventPlanned' &&
+          event.StatusIcon !== 'EventGood' &&
+          !removeLinesFromTrafficSituation.train.includes(event.TrafficLine)
+      ).length > 0
 
-    if (
-      trafficType.Type === 'train' &&
-      trafficType.StatusIcon === 'EventGood'
-    ) {
-      train = true
-    }
-  }
+  const subway =
+    trafficTypesList
+      .find((trafficType) => trafficType.Type === 'metro')
+      .Events.filter(
+        (event) =>
+          event.StatusIcon !== 'EventPlanned' &&
+          event.StatusIcon !== 'EventGood' &&
+          !removeLinesFromTrafficSituation.metro.includes(event.TrafficLine)
+      ).length > 0
 
   return { train, subway }
+}
+
+module.exports = {
+  getSlStatus,
+  getTrafficsituationData,
 }

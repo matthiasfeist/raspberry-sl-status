@@ -1,5 +1,5 @@
 const { Blinkt, COLOURS } = require('blinkt-kit')
-const getSlStatus = require('./getSlStatus.js')
+const { getSlStatus } = require('./getSlStatus.js')
 const { keepScriptRunningSec } = require('./config.js')
 
 const blinkt = new Blinkt()
