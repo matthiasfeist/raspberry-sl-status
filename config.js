@@ -6,6 +6,7 @@ module.exports = {
       'Uppsala-Södertälje',
       'Södertälje-Gnesta',
       'Märsta-Södertälje',
+      'Märsta-Södertälje/Nynäshamn',
     ],
     metro: ['Röda linjen', 'Gröna linjen'],
   },
