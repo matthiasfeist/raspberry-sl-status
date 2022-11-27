@@ -1,5 +1,6 @@
 module.exports = {
   keepScriptRunningSec: 5 * 60 - 20,
+  secondsBetweenScreens: 10,
   removeLinesFromTrafficSituation: {
     train: [
       'Märsta/Uppsala-Södertälje',

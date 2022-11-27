@@ -7,15 +7,23 @@ const {
   STATUS_RAIN,
   STATUS_SNOW,
 } = require('./getWeather.js')
-const { keepScriptRunningSec } = require('./config.js')
+const { keepScriptRunningSec, secondsBetweenScreens } = require('./config.js')
 
 async function main() {
   const blinkt = initBlinkt()
   try {
     const slStatus = await getSlStatus()
-    showSlStatus(slStatus, blinkt)
     const weatherStatus = await getWeather()
-    showWeatherStatus(weatherStatus, blinkt)
+
+    let screen = 0
+    setInterval(() => {
+      screen += 1
+      if (screen % 2 === 0) {
+        showSlStatus(slStatus, blinkt)
+      } else {
+        showWeatherStatus(weatherStatus, blinkt)
+      }
+    }, secondsBetweenScreens * 1000)
   } catch (err) {
     blinkt.setPixel({ pixel: 0, ...COLOURS.MAGENTA })
     blinkt.show()
@@ -76,7 +84,7 @@ function showWeatherStatus(status, blinkt) {
         color = COLOURS.MAGENTA
         break
     }
-    blinkt.setPixel({ pixel: index, brightness: 1, ...color })
+    blinkt.setPixel({ pixel: index, brightness: 0.8, ...color })
     console.log(color)
   })
 
