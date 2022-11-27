@@ -84,7 +84,7 @@ function showWeatherStatus(status, blinkt) {
         color = COLOURS.MAGENTA
         break
     }
-    blinkt.setPixel({ pixel: index, brightness: 0.8, ...color })
+    blinkt.setPixel({ pixel: index, brightness: 0.5, ...color })
     console.log(color)
   })
 
