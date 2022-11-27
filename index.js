@@ -60,26 +60,23 @@ function showSlStatus(status, blinkt) {
 }
 
 function showWeatherStatus(status, blinkt) {
-  status.forEach((element, index) => {
+  // reverse the array to show it the right way on the PI
+  status.reverse().forEach((element, index) => {
     let color = COLOURS.MAGENTA
     switch (element) {
       case STATUS_CLEAR:
-        color = COLOURS.BLUE
-        break
       case STATUS_CLOUDY:
-        color = COLOURS.GRAY
+        color = COLOURS.CYAN
         break
       case STATUS_RAIN:
-        color = COLOURS.LIGHTBLUE
-        break
       case STATUS_SNOW:
-        color = COLOURS.WHITE
+        color = COLOURS.GRAY
         break
       default:
         color = COLOURS.MAGENTA
         break
     }
-    blinkt.setPixel({ pixel: index, brightness: 0.9, ...color })
+    blinkt.setPixel({ pixel: index, brightness: 1, ...color })
     console.log(color)
   })
 
