@@ -74,11 +74,11 @@ function showWeatherStatus(status, blinkt) {
     switch (element) {
       case STATUS_CLEAR:
       case STATUS_CLOUDY:
-        color = COLOURS.CYAN
+        color = COLOURS.GRAY
         break
       case STATUS_RAIN:
       case STATUS_SNOW:
-        color = COLOURS.GRAY
+        color = COLOURS.CYAN
         break
       default:
         color = COLOURS.MAGENTA
