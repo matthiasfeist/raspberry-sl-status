@@ -22,7 +22,7 @@ function processApiData(data) {
   const timeSeries = data.timeSeries
 
   if (timeSeries.length > 7) {
-    for (let index = 0; index < 7; index++) {
+    for (let index = 0; index <= 7; index++) {
       const wsymb = parseInt(
         getValueFromTimeseriesParam(timeSeries[index].parameters, 'Wsymb2')
       )
@@ -73,7 +73,7 @@ function processApiData(data) {
 
 function getValueFromTimeseriesParam(timeseriesParams, name) {
   const param = timeseriesParams.find((elem) => elem.name === name)
-  return param.values[0] ?? null
+  return param.values[0] || null
 }
 
 module.exports = {

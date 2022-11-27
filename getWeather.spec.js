@@ -25,11 +25,13 @@ test('weather1.json', () => {
     'rain',
     'snow',
     'snow',
+    'snow',
   ])
 })
 
 test('weather2.json', () => {
   expect(processApiData(loadFixture('weather2.json'))).toStrictEqual([
+    'cloudy',
     'cloudy',
     'cloudy',
     'cloudy',
