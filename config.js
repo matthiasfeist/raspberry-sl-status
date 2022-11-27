@@ -10,4 +10,8 @@ module.exports = {
     ],
     metro: ['Röda linjen', 'Gröna linjen'],
   },
+  weather: {
+    long: '17.95943',
+    lat: '59.36038',
+  },
 }
