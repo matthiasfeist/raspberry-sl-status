@@ -10,6 +10,10 @@ const {
 const { keepScriptRunningSec, secondsBetweenScreens } = require('./config.js')
 
 async function main() {
+  setTimeout(() => {
+    process.exit()
+  }, keepScriptRunningSec * 1000)
+
   const blinkt = initBlinkt()
   try {
     const slStatus = await getSlStatus()
@@ -30,7 +34,6 @@ async function main() {
     console.log('flashing error pixel')
     console.log(err)
   }
-  await delay(keepScriptRunningSec * 1000)
 }
 main()
 
@@ -89,5 +92,3 @@ function showWeatherStatus(status, blinkt) {
 
   blinkt.show()
 }
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
