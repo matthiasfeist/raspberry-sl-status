@@ -85,7 +85,6 @@ function showWeatherStatus(status, blinkt) {
         break
     }
     blinkt.setPixel({ pixel: index, brightness: 0.5, ...color })
-    console.log(color)
   })
 
   blinkt.show()
