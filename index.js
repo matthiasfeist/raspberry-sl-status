@@ -77,17 +77,17 @@ function showWeatherStatus(status, blinkt) {
     switch (element) {
       case STATUS_CLEAR:
       case STATUS_CLOUDY:
-        color = COLOURS.GRAY
+        color = { brightness: 0.3, ...COLOURS.WHEAT }
         break
       case STATUS_RAIN:
       case STATUS_SNOW:
-        color = COLOURS.CYAN
+        color = { brightness: 1, ...COLOURS.BLUE }
         break
       default:
         color = COLOURS.MAGENTA
         break
     }
-    blinkt.setPixel({ pixel: index, brightness: 0.5, ...color })
+    blinkt.setPixel({ pixel: index, ...color })
   })
 
   blinkt.show()
