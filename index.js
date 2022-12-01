@@ -17,7 +17,9 @@ async function main() {
   const blinkt = initBlinkt()
   try {
     const slStatus = await getSlStatus()
-    const weatherStatus = await getWeather()
+
+    // reverse the array to show it the right way on the PI
+    const weatherStatus = (await getWeather()).reverse()
 
     let screen = 0
     setInterval(() => {
@@ -71,8 +73,7 @@ function showSlStatus(status, blinkt) {
 }
 
 function showWeatherStatus(status, blinkt) {
-  // reverse the array to show it the right way on the PI
-  status.reverse().forEach((element, index) => {
+  status.forEach((element, index) => {
     let color = COLOURS.MAGENTA
     switch (element) {
       case STATUS_CLEAR:
