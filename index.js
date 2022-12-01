@@ -77,7 +77,7 @@ function showWeatherStatus(status, blinkt) {
     switch (element) {
       case STATUS_CLEAR:
       case STATUS_CLOUDY:
-        color = { brightness: 0.3, ...COLOURS.WHEAT }
+        color = { brightness: 0.3, r: 255, g: 255, b: 150 } // warm white
         break
       case STATUS_RAIN:
       case STATUS_SNOW:
