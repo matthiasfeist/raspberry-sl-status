@@ -10,10 +10,12 @@ const STATUS_SNOW = 'snow'
 const STATUS_UNKNOWN = 'unknown'
 
 async function getWeather() {
+  console.log('loading SMHI forecast...')
+  console.time('SMHI forecast loaded.')
   const response = await axios.get(
     `https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${weather.long}/lat/${weather.lat}/data.json`
   )
-
+  console.timeEnd('SMHI forecast loaded.')
   return processApiData(response.data)
 }
 

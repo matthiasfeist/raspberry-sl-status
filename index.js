@@ -1,5 +1,11 @@
 const { Blinkt, COLOURS } = require('blinkt-kit')
-const { getSlStatus, STATUS_OK } = require('./getSlStatus.js')
+const {
+  getSlDepartureInformation,
+  parseSlDepartureInformation,
+  STATUS_GO,
+  STATUS_WAIT,
+  STATUS_PROBLEM,
+} = require('./getSlDepartureInformation.js')
 const {
   getWeather,
   STATUS_CLEAR,
@@ -16,7 +22,7 @@ async function main() {
 
   const blinkt = initBlinkt()
   try {
-    const slStatus = await getSlStatus()
+    const slDepartureData = await getSlDepartureInformation()
 
     // reverse the array to show it the right way on the PI
     const weatherStatus = (await getWeather()).reverse()
@@ -25,9 +31,9 @@ async function main() {
     setInterval(() => {
       screen += 1
       if (screen % 2 === 0) {
-        showSlStatus(slStatus, blinkt)
-      } else {
         showWeatherStatus(weatherStatus, blinkt)
+      } else {
+        showSlDeparture(parseSlDepartureInformation(slDepartureData), blinkt)
       }
     }, secondsBetweenScreens * 1000)
   } catch (err) {
@@ -50,26 +56,33 @@ function initBlinkt() {
   return blinkt
 }
 
-function showSlStatus(status, blinkt) {
-  const colorSubway =
-    status.subway === STATUS_OK
-      ? { ...COLOURS.LIME, brightness: 0.2 }
-      : { ...COLOURS.RED, brightness: 0.9 }
-  blinkt.setPixel({ pixel: 0, ...colorSubway })
-  blinkt.setPixel({ pixel: 1, ...colorSubway })
-  blinkt.setPixel({ pixel: 2, ...colorSubway })
-  blinkt.setPixel({ pixel: 3, ...colorSubway })
+function showSlDeparture(departures, blinkt) {
+  const colorTrain = getSlStatusColor(departures.train)
+  blinkt.setPixel({ pixel: 0, ...colorTrain })
+  blinkt.setPixel({ pixel: 1, ...colorTrain })
+  blinkt.setPixel({ pixel: 2, ...colorTrain })
+  blinkt.setPixel({ pixel: 3, ...colorTrain })
 
-  const colorTrain =
-    status.train === STATUS_OK
-      ? { ...COLOURS.LIME, brightness: 0.2 }
-      : { ...COLOURS.RED, brightness: 0.9 }
-  blinkt.setPixel({ pixel: 4, ...colorTrain })
-  blinkt.setPixel({ pixel: 5, ...colorTrain })
-  blinkt.setPixel({ pixel: 6, ...colorTrain })
-  blinkt.setPixel({ pixel: 7, ...colorTrain })
+  const colorMetro = getSlStatusColor(departures.metro)
+  blinkt.setPixel({ pixel: 4, ...colorMetro })
+  blinkt.setPixel({ pixel: 5, ...colorMetro })
+  blinkt.setPixel({ pixel: 6, ...colorMetro })
+  blinkt.setPixel({ pixel: 7, ...colorMetro })
 
   blinkt.show()
+}
+
+function getSlStatusColor(status) {
+  switch (status) {
+    case STATUS_GO:
+      return { ...COLOURS.LIME, brightness: 0.2 }
+    case STATUS_WAIT:
+      return { r: 255, g: 90, b: 0, brightness: 0.5 }
+    case STATUS_PROBLEM:
+      return { ...COLOURS.RED, brightness: 0.9 }
+    default:
+      return COLOURS.MAGENTA
+  }
 }
 
 function showWeatherStatus(status, blinkt) {
