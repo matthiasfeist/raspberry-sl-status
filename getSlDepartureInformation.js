@@ -11,7 +11,7 @@ async function getSlDepartureInformation() {
   console.log('loading SL departure information...');
   console.time('SL departure information loaded.');
   const response = await axios.get(
-    `https://transport.integration.sl.se/v1/sites/${slStopId}/departures?forecast=30`
+    `https://transport.integration.sl.se/v1/sites/${slStopId}/departures?forecast=60`
   )
   const departures = response.data.departures;
   if (!departures || !Array.isArray(departures)) throw Error('SL departures error');
