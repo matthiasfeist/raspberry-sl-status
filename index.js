@@ -63,10 +63,10 @@ function showSlDeparture(departures, blinkt) {
   blinkt.setPixel({ pixel: 0, ...colorTrain })
   blinkt.setPixel({ pixel: 1, ...colorTrain })
   blinkt.setPixel({ pixel: 2, ...colorTrain })
-  blinkt.setPixel({ pixel: 3, ...colorTrain })
+  //blinkt.setPixel({ pixel: 3, ...colorTrain })
 
   const colorMetro = getSlStatusColor(departures.metro)
-  blinkt.setPixel({ pixel: 4, ...colorMetro })
+  //blinkt.setPixel({ pixel: 4, ...colorMetro })
   blinkt.setPixel({ pixel: 5, ...colorMetro })
   blinkt.setPixel({ pixel: 6, ...colorMetro })
   blinkt.setPixel({ pixel: 7, ...colorMetro })

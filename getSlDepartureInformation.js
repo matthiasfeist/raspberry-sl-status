@@ -38,7 +38,7 @@ function parseSlDepartureInformation(departures) {
     // map all the attributes we need and add a go/not-yet property
     .map(departure => {
       return {
-        goNow: minsBetween(departure.expected) < (minWalktimeToStopMins + windowForGoSignalMins),
+        goNow: minsBetween(departure.expected) <= (minWalktimeToStopMins + windowForGoSignalMins),
         designation: departure.line.designation,
         mode: departure.line.transport_mode,
         display: departure.display,
