@@ -23,6 +23,8 @@ async function main() {
   const blinkt = initBlinkt()
   try {
     const slDepartureData = await getSlDepartureInformation()
+    // show the SL departure data first right after the information is available.
+    showSlDeparture(parseSlDepartureInformation(slDepartureData), blinkt)
 
     // reverse the array to show it the right way on the PI
     const weatherStatus = (await getWeather()).reverse()
