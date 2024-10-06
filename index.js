@@ -59,6 +59,7 @@ function initBlinkt() {
 }
 
 function showSlDeparture(departures, blinkt) {
+  blinkt.clear()
   const colorTrain = getSlStatusColor(departures.train)
   blinkt.setPixel({ pixel: 0, ...colorTrain })
   blinkt.setPixel({ pixel: 1, ...colorTrain })
