@@ -10,6 +10,10 @@ module.exports = {
       direction: 'Nynäshamn',
     },
     {
+      designation: '43X',
+      direction: 'Nynäshamn',
+    },
+    {
       designation: '10',
       direction: 'Kungsträdgården',
     },
