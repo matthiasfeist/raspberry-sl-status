@@ -36,13 +36,24 @@ function parseSlDepartureInformation(departures) {
         (conf) => conf.designation == designation && conf.direction == direction
       );
     })
+    // .map((d) => {
+    //   console.log(
+    //     `🟢 ${d.line.designation}\t${d.direction}\t${d.state}\t${d.journey.state}\t${d.display}`
+    //   );
+    //   return d;
+    // })
+
     // filter out all statuses where the trains are cancelled or have a problem
     .filter((departure) => {
       return (
         departure.state !== 'CANCELLED' &&
-        ['NORMALPROGRESS', 'FASTPROGRESS', 'EXPECTED', 'SLOWPROGRESS'].includes(
-          departure.journey.state
-        )
+        [
+          'NORMALPROGRESS',
+          'FASTPROGRESS',
+          'EXPECTED',
+          'SLOWPROGRESS',
+          'ATORIGIN',
+        ].includes(departure.journey.state)
       );
     })
     // filter out all departures that we can't reach anymore
